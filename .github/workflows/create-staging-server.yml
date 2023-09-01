@@ -23,7 +23,6 @@ jobs:
       - name: Setup EB CLI
         run: brew install aws-elasticbeanstalk
       - name: Initialize EB CLI
-        working-directory: ${{github.workspace}}/lago
         run: eb init --region ca-central-1
       - name: Create Staging Env
         run: eb create strutt-billing-staging-1 --timeout 30 --verbose --process
