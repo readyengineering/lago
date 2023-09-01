@@ -1,0 +1,28 @@
+name: "Deploy Staging"
+on:
+  workflow_dispatch:
+env:
+
+jobs:
+  create_server:
+    environment:
+      name: billing-staging
+      url: https://billing-staging.strut.so
+    runs-on: ubuntu-20.04
+    defaults: 
+      run:
+        shell: bash
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Add Homebrew to PATH
+        run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
+      - name: Setup EB CLI
+        run: brew install aws-elasticbeanstalk
+      - name: Initialize EB CLI
+        working-directory: ${{github.workspace}}/lago
+        run: eb init --region ca-central-1
+      - name: Create Staging Env
+        run: eb create strutt-billing-staging-1 --timeout 30 --verbose --process
