@@ -1,4 +1,4 @@
-name: "Deploy Staging"
+name: "Create Staging Server"
 on:
   workflow_dispatch:
 env:
