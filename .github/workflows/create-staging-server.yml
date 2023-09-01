@@ -2,7 +2,8 @@ name: "Create Staging Server"
 on:
   workflow_dispatch:
 env:
-
+  AWS_ACCESS_KEY_ID: ${{ secrets.STAGING_AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}
 jobs:
   create_server:
     environment:
