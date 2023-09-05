@@ -1,0 +1,34 @@
+name: "Deploy: staging"
+on:
+  workflow_dispatch:
+env:
+  NODE_ENV: production
+  POSTGRES_HOST: ${{ secrets.STAGING_DB_HOST }}
+  POSTGRES_USER: ${{ secrets.STAGING_DB_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
+  LAGO_FRONT_URL: ${{ secrets.STAGING_FRONT_URL }}
+  LAGO_API_URL: ${{ secrets.STAGING_API_URL }}
+  LAGO_API_PORT: ${{ secrets.STAGING_API_PORT }}
+  APP_ENV: staging
+
+jobs:
+  deploy_server:
+    environment:
+      name: staging-billing
+      url: https://staging-billing.strut.so
+    runs-on: ubuntu-20.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout Lago
+        uses: actions/checkout@v3
+        with:
+          path: ${{ github.workspace}}/lago
+      - name: Add Homebrew to PATH
+        run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
+      - name: Setup EB CLI
+        run: brew install aws-elasticbeanstalk
+      - name: Initialize EB CLI
+        run: eb init --region ca-central-1 --platform docker strut-billing-staging
