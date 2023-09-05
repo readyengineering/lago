@@ -35,4 +35,4 @@ jobs:
       - name: Initialize EB CLI
         run: eb init --region ca-central-1 --platform docker strut-billing-staging
       - name: Deploy
-        run: eb deploy
+        run: eb deploy strutt-billing-staging
