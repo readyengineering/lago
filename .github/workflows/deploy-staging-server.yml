@@ -3,13 +3,15 @@ on:
   workflow_dispatch:
 env:
   NODE_ENV: production
+  APP_ENV: staging
+  AWS_ACCESS_KEY_ID: ${{ secrets.STAGING_AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}
+  LAGO_API_URL: ${{ secrets.STAGING_API_URL }}
+  LAGO_API_PORT: ${{ secrets.STAGING_API_PORT }}
+  LAGO_FRONT_URL: ${{ secrets.STAGING_FRONT_URL }}
   POSTGRES_HOST: ${{ secrets.STAGING_DB_HOST }}
   POSTGRES_USER: ${{ secrets.STAGING_DB_USER }}
   POSTGRES_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
-  LAGO_FRONT_URL: ${{ secrets.STAGING_FRONT_URL }}
-  LAGO_API_URL: ${{ secrets.STAGING_API_URL }}
-  LAGO_API_PORT: ${{ secrets.STAGING_API_PORT }}
-  APP_ENV: staging
 
 jobs:
   deploy_server:
