@@ -23,6 +23,6 @@ jobs:
       - name: Setup EB CLI
         run: brew install aws-elasticbeanstalk
       - name: Initialize EB CLI
-        run: eb init --region ca-central-1 strutt-billing-staging
+        run: eb init --region ca-central-1 --platform docker strutt-billing-staging
       - name: Create Staging Env
         run: eb create strutt-billing-staging-1 --timeout 30 --verbose --process
